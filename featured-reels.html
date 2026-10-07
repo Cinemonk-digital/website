@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Featured Reels | Cinemonk Digitals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <!-- Reels stylesheet: update the version value after CSS edits if the browser keeps old styles. -->
+  <link rel="stylesheet" href="featured-reels.css?v=20260722-reels-align">
+</head>
+<body class="fr-demo-page">
+  <!-- Standalone Featured Reels demo; data-reels-src controls the JSON/API source. -->
+  <section class="featured-reels fr-section" data-reels-src="reels.json">
+    <div class="fr-section-head">
+      <div>
+        <p class="fr-label">Featured Reels</p>
+        <h2>Stories Built<br><em>For the Scroll.</em></h2>
+      </div>
+      <a class="fr-view-all" href="https://www.instagram.com/cinemonk_digitals/" target="_blank" rel="noopener">View All <span>+</span></a>
+    </div>
+    <!-- Reels are injected here by featured-reels.js from reels.json. -->
+    <div class="fr-card-grid" data-reels-list aria-live="polite"></div>
+  </section>
+  <!-- Reels script: update the version value after JS edits if the browser keeps old behavior. -->
+  <script src="featured-reels.js?v=20260722-reels-fallback" defer></script>
+</body>
+</html>

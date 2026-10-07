@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "Yendaako Music Video",
+    "caption": "'Yendaako' on loop. Watch the full music video on Warangal Diaries.",
+    "video": "assets/reel1.mp4",
+    "thumbnail": "assets/Social_Media_Management.png",
+    "instagramUrl": "https://www.instagram.com/reel/DZSc8cKM9DB/?stkn=MWdtdzJza3oyeG4zNA%3D%3D",
+    "likes": "9.8K",
+    "comments": "96",
+    "shares": "73",
+    "saves": "182",
+    "profile": "assets/Logo_Cinemonk_Digital.png",
+    "username": "iamnabeelafridi",
+    "audio": "Original Audio"
+  },
+  {
+    "id": 2,
+    "title": "Kunafa Chocolate Bar",
+    "caption": "Gourmet Baklava's Dubai viral bar with rich chocolate, crisp kunafa and pistachio goodness.",
+    "video": "assets/reel2.mp4",
+    "thumbnail": "assets/Content_Creation.png",
+    "instagramUrl": "https://www.instagram.com/reel/DdY4ZjHzfHi/?stkn=aHZ5bG1iZ2V3MWNv",
+    "likes": "6.3K",
+    "comments": "98",
+    "shares": "45",
+    "saves": "112",
+    "profile": "assets/Logo_Cinemonk_Digital.png",
+    "username": "gourmetbaklava",
+    "audio": "Original Audio"
+  },
+  {
+    "id": 3,
+    "title": "Mediterranean Grilled Chicken",
+    "caption": "Seasons XPRS Mediterranean Grilled Chicken, boxed for Banjara Hills, Hitech City and Aero Plaza.",
+    "video": "assets/reel3.mp4",
+    "thumbnail": "assets/Influencer_Collaboration.png",
+    "instagramUrl": "https://www.instagram.com/reel/DdWn1TZT6w8/?stkn=ZDZ5cTRzZzFwbDM4",
+    "likes": "15.2K",
+    "comments": "312",
+    "shares": "128",
+    "saves": "1.5K",
+    "profile": "assets/Logo_Cinemonk_Digital.png",
+    "username": "seasons_xprs",
+    "audio": "Original Audio"
+  },
+  {
+    "id": 4,
+    "title": "Aazebo Malakpet Launch",
+    "caption": "Aazebo Malakpet brings biryani, mandi, kebabs and a full multi-cuisine spread to Hyderabad.",
+    "video": "assets/reel4.mp4",
+    "thumbnail": "assets/logo_branding.png",
+    "instagramUrl": "https://www.instagram.com/reel/DbI0ALcBrQr/?stkn=MXhxNDd2bm55eXZ4MA%3D%3D",
+    "likes": "11.1K",
+    "comments": "184",
+    "shares": "92",
+    "saves": "740",
+    "profile": "assets/Logo_Cinemonk_Digital.png",
+    "username": "maseerasfoodblog",
+    "audio": "Original Audio"
+  }
+]
