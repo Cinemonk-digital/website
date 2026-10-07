@@ -1,0 +1,584 @@
+/*
+  FEATURED REELS STYLE EDIT GUIDE
+  - Reels colors: edit the :root variables below.
+  - Section spacing/background: edit .featured-reels, ::before, and ::after.
+  - Heading and View All button: edit .fr-section-head, .fr-label, h2, and .fr-view-all.
+  - Reel count/size/alignment: edit .fr-section-head width and .fr-card-grid columns/gap/justify-content.
+  - Video crop: edit .fr-reel-card video object-fit.
+  - Instagram overlay UI: edit .fr-top, .fr-profile, .fr-actions, .fr-bottom, .fr-open, .fr-progress.
+  - Animation: edit @keyframes frGlow, frCardIn, frFadeUp, and frBounce.
+  - Responsive layout: edit @media (max-width: 1100px) and @media (max-width: 620px).
+*/
+
+:root {
+  /* Reels theme colors: change these to update only the reels component. */
+  --fr-bg: #090909;
+  --fr-gold: #D9A72B;
+  --fr-gold-soft: #f7cf61;
+  --fr-white: #ffffff;
+  --fr-muted: rgba(255,255,255,.68);
+  --fr-dim: rgba(255,255,255,.45);
+  --fr-panel: rgba(255,255,255,.04);
+  --fr-border: rgba(255,255,255,.08);
+  --fr-blur: 20px;
+}
+
+.fr-demo-page {
+  /* Standalone demo page wrapper for featured-reels.html. */
+  margin: 0;
+  min-height: 100vh;
+  background: var(--fr-bg);
+  color: var(--fr-white);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.fr-demo-page .featured-reels {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.featured-reels {
+  /* Main reels section spacing and cinematic background. */
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(80px, 9vw, 128px) clamp(18px, 5vw, 72px);
+  background:
+    radial-gradient(circle at 50% 34%, rgba(217,167,43,.16), transparent 28rem),
+    radial-gradient(circle at 12% 8%, rgba(255,255,255,.07), transparent 18rem),
+    var(--fr-bg);
+}
+
+.featured-reels::before {
+  /* Subtle grid texture behind the reels. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.featured-reels::after {
+  /* Soft gold ambient glow behind the reel cards. */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  z-index: -1;
+  width: 58vw;
+  height: 58vw;
+  min-width: 520px;
+  min-height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,167,43,.16), transparent 62%);
+  filter: blur(32px);
+  transform: translate(-50%, -50%);
+  animation: frGlow 5.8s ease-in-out infinite;
+}
+
+.fr-section-head {
+  /* Header row: left title and right View All button. */
+  width: min(1280px, 100%);
+  margin: 0 auto 70px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  text-align: left;
+  animation: frFadeUp .8s ease both;
+}
+
+.fr-label {
+  margin: 0 0 15px;
+  color: var(--fr-muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  transition: color .24s ease;
+}
+
+.featured-reels:hover .fr-label {
+  color: var(--fr-gold);
+}
+
+.fr-section-head h2 {
+  margin: 0;
+  color: var(--fr-white);
+  font-size: clamp(42px, 5.6vw, 76px);
+  line-height: .96;
+  letter-spacing: 0;
+}
+
+.fr-section-head em {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.fr-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  margin-bottom: 8px;
+  padding: 0 8px 0 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  background: rgba(255,255,255,.92);
+  color: #0b0b0a;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.fr-view-all span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+  background: #0a0b0b;
+  transition: transform .24s ease, background .24s ease, color .24s ease;
+}
+
+.fr-view-all:hover {
+  transform: translateY(-2px);
+  border-color: rgba(247,207,97,.62);
+  background: var(--fr-gold-soft);
+  color: #120d00;
+  box-shadow: 0 20px 55px rgba(247,207,97,.22);
+}
+
+.fr-view-all:hover span {
+  transform: rotate(90deg);
+  color: #0a0b0b;
+  background: #fff;
+}
+
+.fr-card-grid {
+  /* Match this width with .fr-section-head so reels align with the heading left edge. */
+  width: min(1280px, 100%);
+  margin: 0 auto;
+  display: grid;
+  /* Four larger reels per row on desktop; max 300px keeps them tall and premium. */
+  grid-template-columns: repeat(4, minmax(240px, 300px));
+  justify-content: start;
+  /* Modest gap prevents overlap without making the cards feel detached. */
+  gap: clamp(18px, 2vw, 28px);
+  align-items: start;
+}
+
+.fr-reel-card {
+  /* Individual Instagram-style reel card. */
+  position: relative;
+  overflow: hidden;
+  /* Tall reel proportion; increase the second number for more height. */
+  aspect-ratio: 9 / 18.4;
+  width: 100%;
+  min-height: 0;
+  /* Change border-radius here if you want sharper or softer reel corners. */
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  background: var(--fr-panel);
+  box-shadow:
+    0 28px 90px rgba(0,0,0,.66),
+    0 0 42px rgba(217,167,43,.07),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  transform: translateY(18px);
+  opacity: 0;
+  animation: frCardIn .8s ease forwards;
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+
+.fr-reel-card:nth-child(2) {
+  animation-delay: .08s;
+}
+
+.fr-reel-card:nth-child(3) {
+  animation-delay: .16s;
+}
+
+.fr-reel-card:nth-child(4) {
+  animation-delay: .24s;
+}
+
+.fr-reel-card:hover {
+  /* Hover lift: reduce scale if cards feel too close at hover. */
+  transform: translateY(-8px) scale(1.015);
+  border-color: rgba(217,167,43,.34);
+  box-shadow:
+    0 34px 110px rgba(0,0,0,.76),
+    0 0 58px rgba(217,167,43,.18),
+    inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+.fr-card-link {
+  /* The full card is clickable; the link comes from reels.json and falls back to Cinemonk Instagram. */
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.fr-reel-card video {
+  /* object-fit: cover gives the tall Reels crop; use contain only if you want the full video visible. */
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #020202;
+  transform: scale(1.001);
+}
+
+.fr-reel-card::before,
+.fr-reel-card::after {
+  /* Soft gray-to-transparent gradients keep overlay text readable without a boxed caption background. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fr-reel-card::before {
+  background:
+    linear-gradient(180deg, rgba(34,34,34,.78) 0%, rgba(22,22,22,.52) 13%, rgba(10,10,10,0) 31%);
+}
+
+.fr-reel-card::after {
+  background:
+    linear-gradient(0deg, rgba(18,18,18,.92) 0%, rgba(22,22,22,.7) 24%, rgba(10,10,10,0) 48%);
+}
+
+.fr-top,
+.fr-bottom,
+.fr-progress {
+  /* Non-clickable overlay copy allows the main card link underneath to receive clicks. */
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.fr-actions,
+.fr-open {
+  /* Buttons stay clickable above the full-card Instagram link. */
+  position: absolute;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.fr-top {
+  /* Top account row position. */
+  top: 14px;
+  left: 14px;
+  right: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fr-profile {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.fr-profile img {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(217,167,43,.62);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 18px rgba(217,167,43,.28);
+}
+
+.fr-username {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  color: rgba(248,244,234,.9);
+  font-size: 11px;
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0,0,0,.95);
+}
+
+.fr-username span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fr-verified {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--fr-gold);
+  color: #120d02;
+  font-size: 9px;
+  line-height: 1;
+}
+
+.fr-audio {
+  margin-top: 2px;
+  color: rgba(255,255,255,.72);
+  font-size: 10px;
+}
+
+.fr-menu {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--fr-white);
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(var(--fr-blur));
+}
+
+.fr-actions {
+  /* Right-side like/comment/share/save stack. */
+  right: 12px;
+  top: 42%;
+  display: grid;
+  gap: 13px;
+  transform: translateY(-50%);
+}
+
+.fr-action {
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  border: 0;
+  color: var(--fr-white);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.fr-action svg,
+.fr-menu svg,
+.fr-open svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.72));
+}
+
+.fr-action span {
+  color: var(--fr-white);
+  font-size: 10px;
+  font-weight: 800;
+  text-shadow: 0 1px 10px rgba(0,0,0,.9);
+}
+
+.fr-action:hover svg,
+.fr-action.is-active svg {
+  color: var(--fr-gold-soft);
+  animation: frBounce .42s ease;
+}
+
+.fr-action.is-active span {
+  color: var(--fr-gold-soft);
+}
+
+.fr-bottom {
+  /* Bottom caption area. */
+  left: 14px;
+  right: 58px;
+  bottom: 34px;
+}
+
+.fr-handle {
+  margin: 0 0 7px;
+  color: rgba(248,244,234,.9);
+  font-size: 11px;
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0,0,0,.95);
+}
+
+.fr-handle span {
+  color: var(--fr-gold-soft);
+}
+
+.fr-title {
+  margin: 0 0 7px;
+  color: rgba(255,245,219,.92);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-shadow: 0 2px 12px rgba(0,0,0,.95);
+}
+
+.fr-caption,
+.fr-music {
+  margin: 0;
+  color: rgba(244,241,234,.72);
+  font-size: 10px;
+  line-height: 1.45;
+  text-shadow: 0 2px 10px rgba(0,0,0,.92);
+}
+
+.fr-music {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.fr-open {
+  right: 12px;
+  bottom: 24px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(217,167,43,.58);
+  border-radius: 8px;
+  color: var(--fr-gold-soft);
+  background: rgba(0,0,0,.5);
+  backdrop-filter: blur(var(--fr-blur));
+  transition: transform .25s ease, background .25s ease;
+}
+
+.fr-open:hover {
+  transform: translateY(-2px);
+  background: rgba(217,167,43,.12);
+}
+
+.fr-progress {
+  /* Animated playback progress line. */
+  left: 14px;
+  right: 58px;
+  bottom: 17px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.22);
+}
+
+.fr-progress span {
+  display: block;
+  width: var(--fr-progress, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--fr-gold), #fff1a0);
+}
+
+.fr-error {
+  /* Visible fallback if reels.json fails to load. */
+  grid-column: 1 / -1;
+  padding: 28px;
+  border: 1px solid rgba(217,167,43,.28);
+  border-radius: 18px;
+  color: var(--fr-muted);
+  background: var(--fr-panel);
+  text-align: center;
+}
+
+@keyframes frGlow {
+  0%, 100% {
+    opacity: .55;
+    transform: translate(-50%, -50%) scale(.96);
+  }
+
+  50% {
+    opacity: .95;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+@keyframes frCardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes frFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes frBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  45% {
+    transform: translateY(-4px) scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Accessibility: disables animation for users who request reduced motion. */
+  .featured-reels *,
+  .featured-reels::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  /* Tablet: switch from 4 reels to 2 reels per row. */
+  .fr-card-grid {
+    grid-template-columns: repeat(2, minmax(260px, 360px));
+    justify-content: start;
+  }
+}
+
+@media (max-width: 620px) {
+  /* Mobile: one reel per row, nearly full width. */
+  .featured-reels {
+    padding-inline: 16px;
+  }
+
+  .fr-section-head {
+    display: grid;
+    justify-items: center;
+    margin-bottom: 36px;
+    text-align: center;
+  }
+
+  .fr-view-all {
+    margin-bottom: 0;
+  }
+
+  .fr-card-grid {
+    grid-template-columns: minmax(0, 380px);
+    justify-content: center;
+  }
+
+  .fr-reel-card {
+    min-height: 0;
+  }
+}
